@@ -6,25 +6,10 @@ namespace leadermakerhloi
 {
     internal class Program
     {
-        static string[] ideologies;
-        static string[] traits = File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"resrc\trait.txt"));
+        static ConfigFile config = readConfig.ReadConfigFile();
         static void Main(string[] args)
         {
-            ideologies = GetIdeologies();
-            if (args[0] == "b")
-            {
-                CreateFileBatch();
-            }
-            else
-            {
-                CreateFileNonBatch(args[0], args[1]);
-            }
-        }
-
-        static string[] GetIdeologies()
-        {
-            string[] ideologies = File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"resrc\ideo.txt"));
-            return ideologies;
+            CreateFileBatch();
         }
 
         static void CreateFileNonBatch(string tag, string name)
@@ -33,7 +18,7 @@ namespace leadermakerhloi
             StreamWriter sw = new StreamWriter(path);
             sw.Write("characters = {\n\t");
             int i = 0;
-            foreach(string ideo in ideologies)
+            foreach(string ideo in config.ideologies)
             {
                 string s = GetTitleThing(ideo);
                 i++;
@@ -41,18 +26,18 @@ namespace leadermakerhloi
                 sw.Write(String.Format("name = {0}_{1}\n\t\t", tag, name));
                 sw.Write("portraits = {\n\t\t\t");
                 sw.Write("army = {\n\t\t\t\t");
-                sw.Write(String.Format("small = \"gfx/leaders/{0}/danchou.dds\"\n\t\t\t", tag));
+                sw.Write(String.Format("small = \"gfx/leaders/{0}/{1}.dds\"\n\t\t\t", tag, config.ddsName));
                 sw.Write("}\n\t\t\t");
                 sw.Write("army = {\n\t\t\t\t");
-                sw.Write(String.Format("large = \"gfx/leaders/{0}/danchou.dds\"\n\t\t\t", tag));
+                sw.Write(String.Format("large = \"gfx/leaders/{0}/{1}.dds\"\n\t\t\t", tag, config.ddsName));
                 sw.Write("}\n\t\t");
                 sw.Write("}\n\t\t");
                 sw.Write("country_leader = {\n\t\t\t");
                 sw.Write(String.Format("ideology = {0}\n\t\t\t", ideo));
-                if (traits != null)
+                if (config.useTraits == true)
                 {
                     sw.Write("traits = { ");
-                    foreach(string var in traits)
+                    foreach(string var in config.traits)
                     {
                         sw.Write(var);
                         sw.Write(" ");
@@ -63,10 +48,10 @@ namespace leadermakerhloi
                 {
                     sw.Write("traits = { }\n\t\t\t");
                 }
-                sw.Write("expire=\"1965.1.1.1\"\n\t\t\t");
+                sw.Write(String.Format("expire=\"{0}\"\n\t\t\t", config.expirationDate));
                 sw.Write("id =\n\t\t");
                 sw.Write("}\n\t");
-                if (i < ideologies.Length)
+                if (i < config.ideologies.Length)
                 {
                     sw.Write("}\n\t");
                 }
@@ -81,11 +66,9 @@ namespace leadermakerhloi
 
         static void CreateFileBatch()
         {
-            string[] var0 = File.ReadAllLines(Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"resrc\name_tag.txt"));
-            foreach(string sVar0 in var0)
+            for (int i = 0; i < config.names.Length; i++)
             {
-                string[] saVar0 = sVar0.Split(',');
-                CreateFileNonBatch(saVar0[0], saVar0[1]);
+                CreateFileNonBatch(config.tags[i], config.names[i]);
             }
         }
 
