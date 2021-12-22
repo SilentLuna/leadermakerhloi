@@ -100,69 +100,55 @@ namespace leadermakerhloi
 
         static string GetTitleThing(string s)
         {
-            if (s == "pro_yagoo_conservatism")
+            switch (s)
             {
-                return "democratic";
-            }
-            else if (s == "pro_yagoo_progressivism")
-            {
-                return "progressive";
-            }
-            else if (s == "pro_yagoo_monarchism")
-            {
-                return "monarchy";
-            }
-            else if (s == "pro_yagoo_kleptocratic")
-            {
-                return "yagoo_kleptocratic";
-            }
-            else if (s == "pro_resistance_revolutionary")
-            {
-                return "revolutionary";
-            }
-            else if (s == "pro_resistance_nationalist")
-            {
-                return "nationalism";
-            }
-            else if (s == "enlightened_monarchy")
-            {
-                return "resistance_monarchy";
-            }
-            else if (s == "pro_resistance_kleptocratic")
-            {
-                return "resistance_kleptocracy";
-            }
-            else if (s == "kleptocratic_dictator")
-            {
-                return "neutral_kleptocratic";
-            }
-            else if (s == "reactionary_nationalist")
-            {
-                return "reactionary_nationalism";
-            }
-            else if (s == "holo_theocracy")
-            {
-                return "divine_mandate";
-            }
-            else if (s == "mixed_ideology_democrat")
-            {
-                return "neutral_democracy";
-            }
-            else if (s == "new_nationalism")
-            {
-                return "new_nationalist";
-            }
-            else if (s == "left_wing_revolutionaries")
-            {
-                return "left_wing_revolutionary";
-            }
-            else if (s == "reactionary_monarchist")
-            {
-                return "reactionary_monarchy";
-            }
-            else
-            {
-                return "democratic_anti";
+                case "pro_yagoo_conservatism":
+                    return "democratic";
+
+                case "pro_yagoo_progressivism":
+                    return "progressive";
+
+                case "pro_yagoo_monarchism":
+                    return "monarchy";
+
+                case "pro_yagoo_kleptocratic":
+                    return "yagoo_kleptocratic";
+
+                case "pro_resistance_revolutionary":
+                    return "revolutionary";
+
+                case "pro_resistance_nationalist":
+                    return "nationalism";
+
+                case "enlightened_monarchy":
+                    return "resistance_monarchy";
+
+                case "pro_resistance_kleptocratic":
+                    return "resistance_kleptocracy";
+
+                case "kleptocratic_dictator":
+                    return "neutral_kleptocratic";
+
+                case "reactionary_nationalist":
+                    return "reactionary_nationalism";
+
+                case "holo_theocracy":
+                    return "divine_mandate";
+
+                case "mixed_ideology_democrat":
+                    return "neutral_democracy";
+
+                case "new_nationalism":
+                    return "new_nationalist";
+
+                case "left_wing_revolutionaries":
+                    return "left_wing_revolutionary";
+
+                case "reactionary_monarchist":
+                    return "reactionary_monarchy";
+
+                default:
+                    return "democratic_anti";
             }
         }
     }
