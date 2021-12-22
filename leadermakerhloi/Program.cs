@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 
@@ -11,6 +12,8 @@ namespace leadermakerhloi
         {
             CreateFileBatch();
         }
+        static string ddsName;
+        static List<String> traits = new List<String>();
 
         static void CreateFileNonBatch(string tag, string name)
         {
@@ -26,10 +29,10 @@ namespace leadermakerhloi
                 sw.Write(String.Format("name = {0}_{1}\n\t\t", tag, name));
                 sw.Write("portraits = {\n\t\t\t");
                 sw.Write("army = {\n\t\t\t\t");
-                sw.Write(String.Format("small = \"gfx/leaders/{0}/{1}.dds\"\n\t\t\t", tag, config.ddsName));
+                sw.Write(String.Format("small = \"gfx/leaders/{0}/{1}.dds\"\n\t\t\t", tag, ddsName));
                 sw.Write("}\n\t\t\t");
                 sw.Write("army = {\n\t\t\t\t");
-                sw.Write(String.Format("large = \"gfx/leaders/{0}/{1}.dds\"\n\t\t\t", tag, config.ddsName));
+                sw.Write(String.Format("large = \"gfx/leaders/{0}/{1}.dds\"\n\t\t\t", tag, ddsName));
                 sw.Write("}\n\t\t");
                 sw.Write("}\n\t\t");
                 sw.Write("country_leader = {\n\t\t\t");
@@ -37,7 +40,7 @@ namespace leadermakerhloi
                 if (config.useTraits == true)
                 {
                     sw.Write("traits = { ");
-                    foreach(string var in config.traits)
+                    foreach(string var in traits)
                     {
                         sw.Write(var);
                         sw.Write(" ");
@@ -68,6 +71,29 @@ namespace leadermakerhloi
         {
             for (int i = 0; i < config.names.Length; i++)
             {
+                traits.Clear();
+                if (config.useMultipleDDSNames == true)
+                {
+                    ddsName = config.ddsNames[i];
+                }
+                else
+                {
+                    ddsName = config.ddsName;
+                }
+                if (config.useTraits == true)
+                {
+                    foreach(var Trait in config.traits)
+                    {
+                        foreach(string var in Trait.nationsWithTrait)
+                        {
+                            if (var == config.tags[i])
+                            {
+                                traits.Add(Trait.name);
+                                break;
+                            }
+                        }
+                    }
+                }    
                 CreateFileNonBatch(config.tags[i], config.names[i]);
             }
         }

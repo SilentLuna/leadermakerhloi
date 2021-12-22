@@ -20,11 +20,18 @@ namespace leadermakerhloi
     {
         public bool useTraits { get; set; }
         public string expirationDate { get; set; }
+        public bool useMultipleDDSNames { get; set; }
         public string ddsName { get; set; }
         public bool useExternalFiles { get; set; }
         public string[] tags { get; set; } = new string[100];
         public string[] names { get; set; } = new string[100];
-        public string[] traits { get; set; } = new string[100];
+        public Traits[] traits { get; set; } = new Traits[100];
+        public string[] ddsNames { get; set; } = new string[200];
         public string[] ideologies { get; set; } = new string[100];
+    }
+    public class Traits
+    {
+        public string name { get; set; }
+        public string[] nationsWithTrait { get; set; } = new string[100];
     }
 }
