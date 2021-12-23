@@ -109,7 +109,7 @@ namespace leadermakerhloi
                     return "progressive";
 
                 case "pro_yagoo_monarchism":
-                    return "monarchy";
+                    return "yagoo_monarchy";
 
                 case "pro_yagoo_kleptocratic":
                     return "yagoo_kleptocratic";
